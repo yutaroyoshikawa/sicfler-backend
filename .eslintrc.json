@@ -31,9 +31,10 @@
     }
   },
   "rules": {
-    "prettier/prettier": "error",
-    "no-return-assign": ["off"],
-    "prefer-promise-reject-errors": ["off"],
-    "import/extensions": [".js", ".json", ".ts"]
+    "prettier/prettier": 2,
+    "no-return-assign": 0,
+    "prefer-promise-reject-errors": 0,
+    "import/prefer-default-export": 0,
+    "import/extensions": 0
   }
 }
