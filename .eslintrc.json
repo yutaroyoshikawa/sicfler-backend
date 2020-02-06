@@ -34,6 +34,6 @@
     "prettier/prettier": "error",
     "no-return-assign": ["off"],
     "prefer-promise-reject-errors": ["off"],
-    "import/extensions": [".js", ".json", ".ts"],
+    "import/extensions": [".js", ".json", ".ts"]
   }
 }
