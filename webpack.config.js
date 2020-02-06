@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   mode: "production",
   entry: "./index.ts",
@@ -20,6 +22,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".ts"]
+    extensions: [".ts"],
+    modules: [path.resolve(__dirname, "src"), "node_modules"]
   }
 };

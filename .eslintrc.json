@@ -19,9 +19,21 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".json",
+          ".ts"
+        ]
+      }
+    }
+  },
   "rules": {
     "prettier/prettier": "error",
     "no-return-assign": ["off"],
-    "prefer-promise-reject-errors": ["off"]
+    "prefer-promise-reject-errors": ["off"],
+    "import/extensions": [".js", ".json", ".ts"],
   }
 }
