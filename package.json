@@ -4,10 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "ts-node ./handler.ts",
-    "dev-watch": "ts-node-dev --respawn ./handler.ts",
-    "build": "webpack",
-    "watch": "webpack -w"
+    "gen-types:server": "graphql-codegen --config codegen-server.yml",
+    "gen-types:client": "graphql-codegen --config codegen-client.yml"
   },
   "lint-staged": {
     "*.{js,ts}": [
@@ -34,6 +32,11 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
+    "@babel/preset-typescript": "^7.8.3",
+    "@graphql-codegen/cli": "^1.12.2",
+    "@graphql-codegen/typescript": "^1.12.2",
+    "@graphql-codegen/typescript-operations": "^1.12.2",
+    "@graphql-codegen/typescript-react-apollo": "^1.12.2",
     "@types/node": "^13.7.0",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
