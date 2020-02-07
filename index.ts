@@ -3,4 +3,9 @@ import { typeDefs, resolvers } from "./src/main";
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-export const graphql = server.createHandler();
+export const graphql = server.createHandler({
+  cors: {
+    origin: "*",
+    credentials: true
+  }
+});
