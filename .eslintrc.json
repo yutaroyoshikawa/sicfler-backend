@@ -15,10 +15,6 @@
     "node": true,
     "es6": true
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
   "settings": {
     "import/resolver": {
       "node": {
@@ -35,6 +31,7 @@
     "no-return-assign": 0,
     "prefer-promise-reject-errors": 0,
     "import/prefer-default-export": 0,
-    "import/extensions": 0
+    "import/extensions": 0,
+    "@typescript-eslint/explicit-function-return-type": 0
   }
 }

@@ -3,4 +3,4 @@ import { typeDefs, resolvers } from "./src/main";
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-export const handler = server.createHandler();
+export const graphql = server.createHandler();
