@@ -185,3 +185,5 @@ dist
 .vscode-test
 
 src/generated/
+
+.webpack

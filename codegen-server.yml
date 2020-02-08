@@ -5,6 +5,9 @@ documents:
   - "./src/graphql/mutations/*.graphql"
 generates:
   src/generated/graphql.ts:
+    hooks:
+      afterOneFileWrite:
+        - eslint --fix src/generated/*.ts
     plugins:
       - "typescript"
       - "typescript-resolvers"

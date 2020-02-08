@@ -21,7 +21,8 @@
         "extensions": [
           ".js",
           ".json",
-          ".ts"
+          ".ts",
+          ".graphql"
         ]
       }
     }

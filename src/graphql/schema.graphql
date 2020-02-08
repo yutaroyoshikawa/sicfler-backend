@@ -1,0 +1,35 @@
+type User {
+  email: ID!
+  password: String!
+  permission: String!
+}
+
+type Orner {
+  id: ID!
+  user: User!
+  name: String!
+  discription: String
+  icon: String
+  address: String
+}
+
+type Post {
+  id: ID!
+  orner: Orner!
+  name: String!
+  discription: String
+  sumbnail: String
+  address: String
+}
+
+type Query {
+  user(email: ID!): User!
+  users: [User]!
+  orner: Orner!
+  post: Post!
+}
+
+type Mutation {
+  addUser(email: ID!, password: String!): User!
+  deleteUser(email: ID!): User!
+}

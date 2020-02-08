@@ -1,24 +1,20 @@
-import { IResolvers } from "apollo-server-lambda";
-import fs from "fs";
-import path from "path";
-import Mutations from "./mutations";
-import Queries from "./queries";
+import { Config } from "apollo-server-lambda";
+import Mutation from "./mutations";
+import Query from "./queries";
+import { Resolvers } from "./generated/graphql";
+import typeDefs from "./graphql/schema.graphql";
 
-const typeDefs = fs
-  .readFileSync(path.join(__dirname, "./graphql/schema.graphql"))
-  .toString();
+const resolvers: Resolvers = { Query, Mutation };
 
-const resolvers: IResolvers = { Queries, Mutations };
+const context = () => {
+  // const token = req.headers.authorization || "";
+  // const user = token ? "admin" : "user";
 
-const context = ({ req }: any) => {
-  const token = req.headers.authorization || "";
-  const user = token ? "admin" : "user";
-
-  return { user };
+  return { user: "user" };
 };
 
 export default {
   typeDefs,
   resolvers,
   context
-};
+} as Config;

@@ -1,0 +1,6 @@
+query user($email: ID!) {
+  user(email: $email) {
+    email
+    permission
+  }
+}

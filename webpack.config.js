@@ -36,6 +36,11 @@ module.exports = {
           transpileOnly: true,
           experimentalWatchApi: true,
         }
+      },
+      {
+        test: /\.graphql$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
       }
     ]
   },

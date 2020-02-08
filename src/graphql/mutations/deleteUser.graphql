@@ -1,0 +1,6 @@
+mutation deleteUser($email: ID!) {
+  deleteUser(email: $email) {
+    email
+    permission
+  }
+}
