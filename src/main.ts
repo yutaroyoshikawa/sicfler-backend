@@ -4,8 +4,21 @@ import path from "path";
 import Mutations from "./mutations";
 import Queries from "./queries";
 
-export const typeDefs = fs
+const typeDefs = fs
   .readFileSync(path.join(__dirname, "./graphql/schema.graphql"))
   .toString();
 
-export const resolvers: IResolvers = { Queries, Mutations };
+const resolvers: IResolvers = { Queries, Mutations };
+
+const context = ({ req }: any) => {
+  const token = req.headers.authorization || "";
+  const user = token ? "admin" : "user";
+
+  return { user };
+};
+
+export default {
+  typeDefs,
+  resolvers,
+  context
+};
