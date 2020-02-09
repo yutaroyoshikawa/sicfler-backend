@@ -4,29 +4,55 @@ type User {
   permission: String!
 }
 
+type Geolocation {
+  xIndex: Float
+  yIndex: Float
+}
+
 type Orner {
   id: ID!
   user: User!
   name: String!
   discription: String
   icon: String
+  images: [String]!
   address: String
+  location: Geolocation
+}
+
+type Visitor {
+  visitorName: String!
+  discription: String
+  sumbnail: String
+}
+
+type Target {
+  ageGroup: Int
+  gender: Int
 }
 
 type Post {
   id: ID!
-  orner: Orner!
   name: String!
+  start: DateTime!
+  finish: DateTime!
   discription: String
   sumbnail: String
+  images: [String]!
+  Visitors: [Visitor]!
+  orner: Orner!
   address: String
+  location: Geolocation
+  target: Target!
 }
 
 type Query {
   user(email: ID!): User!
   users: [User]!
-  orner: Orner!
-  post: Post!
+  orner(id: ID!): Orner!
+  orners: [Orner]!
+  post(id: ID!): Post!
+  posts: [Post]!
 }
 
 type Mutation {
