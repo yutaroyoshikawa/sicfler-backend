@@ -57,6 +57,8 @@ functions:
         path: graphql
         method: get
         cors: true
+    environment:
+      TZ: Asia/Tokyo
 
 # you can add CloudFormation resource templates here
 resources:
