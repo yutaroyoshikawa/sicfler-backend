@@ -1,0 +1,37 @@
+mutation deletePost($id: ID!) {
+  deletePost(id: $id) {
+    id
+    name
+    start
+    finish
+    discription
+    sumbnail
+    images
+    visitors {
+      visitorName
+      discription
+      sumbnail
+    }
+    orner {
+      id
+      email
+      discription
+      icon
+      images
+      address
+      location {
+        xIndex
+        yIndex
+      }
+    }
+    address
+    location {
+      xIndex
+      yIndex
+    }
+    target {
+      ageGroup
+      gender
+    }
+  }
+}
