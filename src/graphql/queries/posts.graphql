@@ -1,0 +1,16 @@
+query posts {
+  post {
+    id
+    name
+    start
+    finish
+    discription
+    sumbnail
+    images
+    visitors
+    orner
+    address
+    location
+    target
+  }
+}

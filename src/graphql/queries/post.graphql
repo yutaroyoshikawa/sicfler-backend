@@ -1,0 +1,16 @@
+query post($id: ID!) {
+  post(id: $id) {
+    id
+    name
+    start
+    finish
+    discription
+    sumbnail
+    images
+    visitors
+    orner
+    address
+    location
+    target
+  }
+}
