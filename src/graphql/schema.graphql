@@ -48,6 +48,16 @@ type Post {
   target: Target!
 }
 
+input GeolocationInput {
+  xIndex: Float
+  yIndex: Float
+}
+
+input TargetInput {
+  ageGroup: Int
+  gender: Int
+}
+
 type Query {
   user(email: ID!): User!
   users: [User]!
@@ -60,4 +70,36 @@ type Query {
 type Mutation {
   addUser(email: ID!, password: String!): User!
   deleteUser(email: ID!): User!
+  addOrner(
+    email: ID!,
+    name: String!,
+    discription: String,
+    icon: String,
+    images: [String]!,
+    address: String,
+    location: GeolocationInput
+  ): Orner!
+  updateOrner(
+    id: ID!,
+    email: ID,
+    name: String,
+    discription: String,
+    icon: String,
+    images: [String],
+    address: String,
+    location: GeolocationInput
+  ): Orner!
+  addPost(
+    name: String!,
+    start: DateTime!,
+    finish: DateTime!,
+    discription: String,
+    sumbnail: String,
+    images: [String]!,
+    ornerId: String!,
+    address: String,
+    location: GeolocationInput
+    target: TargetInput!
+  ): Post!
+  deletePost(id: ID!): Post!
 }
