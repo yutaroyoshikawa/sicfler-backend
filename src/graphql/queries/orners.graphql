@@ -1,0 +1,12 @@
+query orners {
+  orner {
+    id
+    user
+    name
+    discription
+    icon
+    images
+    address
+    location
+  }
+}
