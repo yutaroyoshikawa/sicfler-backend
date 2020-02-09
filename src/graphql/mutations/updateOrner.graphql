@@ -1,0 +1,33 @@
+mutation updateOrner(
+  $id: ID!,
+  $email: ID,
+  $name: String,
+  $discription: String,
+  $icon: String,
+  $images: [String],
+  $address: String,
+  $location: GeolocationInput
+) {
+  updateOrner(
+    id: $id,
+    email: $email,
+    name: $name,
+    discription: $discription,
+    icon: $icon,
+    images: $images,
+    address: $address,
+    location: $location
+  ) {
+    id
+    email
+    name
+    discription
+    icon
+    images
+    address
+    location {
+      xIndex
+      yIndex
+    }
+  }
+}
