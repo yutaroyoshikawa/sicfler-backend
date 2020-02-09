@@ -3,15 +3,40 @@
 ## Getting Start
 
 ```shell
-npm i --save & npm run dev
+npm i --save
 ```
 
-### How to build
+### How to
+
+### Launch on local
 
 ```shell
-npm run build
+sls offline
+```
+
+### Deploy
+
+```shell
+sls deploy
+```
+
+### Type Generate
+
+- Server
+
+```shell
+npm run gen-types:server
+```
+
+- Client
+
+```shell
+npm run gen-types:client
 ```
 
 ## Tech stacks
 
 - TypeScript
+- ApolloServer
+- Graphql-codegen
+- Serverless framework
