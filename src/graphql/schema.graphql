@@ -1,3 +1,5 @@
+scalar DateTime
+
 type User {
   email: ID!
   password: String!
@@ -11,7 +13,7 @@ type Geolocation {
 
 type Orner {
   id: ID!
-  user: User!
+  email: String!
   name: String!
   discription: String
   icon: String

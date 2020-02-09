@@ -1,12 +1,15 @@
 query orners {
-  orner {
+  orners {
     id
-    user
+    email
     name
     discription
     icon
     images
     address
-    location
+    location {
+      xIndex
+      yIndex
+    }
   }
 }

@@ -7,10 +7,32 @@ query post($id: ID!) {
     discription
     sumbnail
     images
-    visitors
-    orner
+    visitors {
+      visitorName
+      discription
+      sumbnail
+    }
+    orner {
+      id
+      email
+      name
+      discription
+      icon
+      images
+      address
+      location {
+        xIndex
+        yIndex
+      }
+    }
     address
-    location
-    target
+    location {
+      xIndex
+      yIndex
+    }
+    target {
+      ageGroup
+      gender
+    }
   }
 }

@@ -1,12 +1,15 @@
 query orner($id: ID!) {
   orner(id: $id) {
     id
-    user
+    email
     name
     discription
     icon
     images
     address
-    location
+    location {
+      xIndex
+      yIndex
+    }
   }
 }
