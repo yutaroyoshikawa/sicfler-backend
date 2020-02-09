@@ -37,13 +37,9 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action: 
-        - dynamodb:Query
-        - dynamodb:PutItem
-        - s3:ListBucket
-        - s3:GetObject
-        - s3:PutObject
-        - s3:DeleteObject
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.stage}-*"
+        - dynamodb:*
+        - s3:*
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/*"
 
 functions:
   graphql:
