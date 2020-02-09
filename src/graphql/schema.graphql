@@ -39,7 +39,7 @@ type Post {
   discription: String
   sumbnail: String
   images: [String]!
-  Visitors: [Visitor]!
+  visitors: [Visitor]!
   orner: Orner!
   address: String
   location: Geolocation
