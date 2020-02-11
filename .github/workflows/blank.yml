@@ -17,10 +17,16 @@ jobs:
         with:
           node-version: '12.x'
 
+      - name: Decode dotenv file
+        run : echo ${{ secrets.ENV_FILE }} | base64 --decode > .env
+
       - name: Install Dependencies
         run: |
           npm install serverless -g
           npm install
+
+      - name: Generate Types
+        run: npm run gen-types:server
 
       - name: Deploy to AWS
         run: sls deploy --overwrite
