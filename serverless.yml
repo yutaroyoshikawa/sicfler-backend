@@ -57,6 +57,16 @@ functions:
       TZ: Asia/Tokyo
 
 # you can add CloudFormation resource templates here
+Outputs:
+  StaticContentsCloudFrontUrl:
+    Value:
+      Fn::Join:
+        - ""
+        - - "https://"
+          - Fn::GetAtt:
+            - StaticContentsCloudFront
+            - DomainName
+
 resources:
  Resources:
     Bucket:
@@ -67,6 +77,70 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: "${self:service}-admin"
+    AdminS3Policy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: Admin
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                AWS:
+                  Fn::Join:
+                    - " "
+                    - - "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity"
+                      - Ref: StaticCloudFrontOriginAccessIdentity
+              Action: s3:GetObject
+              Resource:
+                Fn::Join:
+                  - "/"
+                  - - Fn::GetAtt:
+                        - Admin
+                        - Arn
+                    - "*"
+    StaticContentsCloudFront:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Enabled: true
+          Comment: "Delivery static contents"
+          PriceClass: PriceClass_200
+          DefaultRootObject: index.html
+          Origins:
+            - Id: S3Origin
+              DomainName:
+                Fn::GetAtt:
+                  - Admin
+                  - DomainName
+              S3OriginConfig:
+                OriginAccessIdentity:
+                  Fn::Join:
+                    - "/"
+                    - - origin-access-identity/cloudfront
+                      - Ref: StaticCloudFrontOriginAccessIdentity
+          DefaultCacheBehavior:
+            AllowedMethods:
+              - HEAD
+              - GET
+            CachedMethods:
+              - HEAD
+              - GET
+            Compress: true
+            DefaultTTL: 900
+            MaxTTL: 1200
+            MinTTL: 600
+            ForwardedValues:
+              QueryString: true
+            SmoothStreaming: false
+            TargetOriginId: S3Origin
+            ViewerProtocolPolicy: https-only
+    StaticCloudFrontOriginAccessIdentity:
+      Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+      Properties:
+        CloudFrontOriginAccessIdentityConfig:
+          Comment:
+            Ref: AWS::StackName
     UsersTable:
       Type: AWS::DynamoDB::Table
       Properties:
