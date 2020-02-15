@@ -78,21 +78,25 @@ const getClaim = async (token: string): Promise<Claim> => {
   return claim;
 };
 
+const validateClaim = (claim: Claim): void => {
+  const currentSeconds = Math.floor(new Date().valueOf() / 1000);
+  if (currentSeconds > claim.exp || currentSeconds < claim.auth_time) {
+    throw new AuthenticationError("claim is expired or invalid");
+  }
+  if (claim.iss !== COGNITO_ISSUER) {
+    throw new Error("claim issuer is invalid");
+  }
+  if (claim.token_use !== "access") {
+    throw new AuthenticationError("claim use is not access");
+  }
+};
+
 const context = async (ctx: { event: any; context: any }) => {
   const token = ctx.event.headers.authorization || "";
 
   if (token) {
     const claim = await getClaim(token);
-    const currentSeconds = Math.floor(new Date().valueOf() / 1000);
-    if (currentSeconds > claim.exp || currentSeconds < claim.auth_time) {
-      throw new AuthenticationError("claim is expired or invalid");
-    }
-    if (claim.iss !== COGNITO_ISSUER) {
-      throw new Error("claim issuer is invalid");
-    }
-    if (claim.token_use !== "access") {
-      throw new AuthenticationError("claim use is not access");
-    }
+    validateClaim(claim);
 
     const user = {
       userName: claim.username,
