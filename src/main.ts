@@ -84,9 +84,8 @@ const getClaim = async (token: string): Promise<Claim> => {
   return claim;
 };
 
-const context = async (req: any) => {
-  console.log(req.headers);
-  const token = req.headers.authorization || "";
+const context = async (ctx: { req: any }) => {
+  const token = ctx.req.headers.authorization || "";
 
   if (token) {
     const claim = await getClaim(token);
