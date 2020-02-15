@@ -42,12 +42,12 @@ interface Claim {
   client_id: string;
 }
 
+const COGNITO_ISSUER = `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.COGNITO_POOL_ID}`;
+
 const getClaim = async (token: string): Promise<Claim> => {
   const generatePem = async (): Promise<MapOfKidToPublicKey> => {
     const getIssuer = async (): Promise<PublicKeys> => {
-      const cognitoIssuer = `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.COGNITO_POOL_ID}`;
-      const url = `${cognitoIssuer}/.well-known/jwks.json`;
-
+      const url = `${COGNITO_ISSUER}/.well-known/jwks.json`;
       const response = await fetch(url);
       return response.json();
     };
@@ -87,9 +87,9 @@ const context = async (ctx: { event: any; context: any }) => {
     if (currentSeconds > claim.exp || currentSeconds < claim.auth_time) {
       throw new AuthenticationError("claim is expired or invalid");
     }
-    // if (claim.iss !== cognitoIssuer) {
-    //   throw new Error("claim issuer is invalid");
-    // }
+    if (claim.iss !== COGNITO_ISSUER) {
+      throw new Error("claim issuer is invalid");
+    }
     if (claim.token_use !== "access") {
       throw new AuthenticationError("claim use is not access");
     }
@@ -104,7 +104,7 @@ const context = async (ctx: { event: any; context: any }) => {
   }
 
   const user = {
-    userName: `token:${token}`,
+    userName: "",
     clientId: "",
     isValid: false
   };
