@@ -1,3 +1,4 @@
+import { AuthenticationError } from "apollo-server-lambda";
 import { promisify } from "util";
 import jwt from "jsonwebtoken";
 import jwkToPem from "jwk-to-pem";
@@ -70,7 +71,7 @@ const getClaim = async (token: string): Promise<Claim> => {
   const keys = await generatePem();
   const key = keys[header.kid];
   if (key === undefined) {
-    throw new Error("claim made for unknown kid");
+    throw new AuthenticationError("claim made for unknown kid");
   }
   const claim = (await verifyPromised(token, key.pem)) as Claim;
 
@@ -84,13 +85,13 @@ const context = async (ctx: { event: any; context: any }) => {
     const claim = await getClaim(token);
     const currentSeconds = Math.floor(new Date().valueOf() / 1000);
     if (currentSeconds > claim.exp || currentSeconds < claim.auth_time) {
-      throw new Error("claim is expired or invalid");
+      throw new AuthenticationError("claim is expired or invalid");
     }
     // if (claim.iss !== cognitoIssuer) {
     //   throw new Error("claim issuer is invalid");
     // }
     if (claim.token_use !== "access") {
-      throw new Error("claim use is not access");
+      throw new AuthenticationError("claim use is not access");
     }
 
     const user = {
