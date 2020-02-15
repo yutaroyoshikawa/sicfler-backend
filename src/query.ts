@@ -8,10 +8,10 @@ const Query: QueryResolvers = {
       permission: "hoge"
     };
   },
-  async users() {
+  async users(_parent, args, context) {
     return [
       {
-        email: "hoge@hoge.com",
+        email: context.userName,
         password: "hoge",
         permission: "hoge"
       }
