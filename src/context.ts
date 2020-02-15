@@ -103,7 +103,7 @@ const context = async (ctx: { event: any; context: any }) => {
   }
 
   const user = {
-    userName: "",
+    userName: "noUser",
     clientId: "",
     isValid: false
   };
