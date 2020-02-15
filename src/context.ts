@@ -4,8 +4,6 @@ import jwt from "jsonwebtoken";
 import jwkToPem from "jwk-to-pem";
 import fetch from "node-fetch";
 
-const verifyPromised = promisify(jwt.verify.bind(jwt));
-
 interface TokenHeader {
   kid: string;
   alg: string;
@@ -45,6 +43,8 @@ interface Claim {
 const COGNITO_ISSUER = `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.COGNITO_POOL_ID}`;
 
 const getClaim = async (token: string): Promise<Claim> => {
+  const verifyPromised = promisify(jwt.verify.bind(jwt));
+
   const generatePem = async (): Promise<MapOfKidToPublicKey> => {
     const getIssuer = async (): Promise<PublicKeys> => {
       const url = `${COGNITO_ISSUER}/.well-known/jwks.json`;
