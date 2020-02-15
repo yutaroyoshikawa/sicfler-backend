@@ -86,6 +86,16 @@ const getClaim = async (token: string): Promise<Claim> => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const context = async (ctx: any) => {
+  if (ctx.req.headers === undefined) {
+    const user = {
+      userName: "",
+      clientId: "",
+      isValid: false
+    };
+
+    return user;
+  }
+
   const token = ctx.req.headers.authorization || "";
 
   if (token) {
