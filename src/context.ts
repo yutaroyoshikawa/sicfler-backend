@@ -43,8 +43,6 @@ interface Claim {
 const COGNITO_ISSUER = `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.COGNITO_POOL_ID}`;
 
 const getClaim = async (token: string): Promise<Claim> => {
-  const verifyPromised = promisify(jwt.verify.bind(jwt));
-
   const generatePem = async (): Promise<MapOfKidToPublicKey> => {
     const getIssuer = async (): Promise<PublicKeys> => {
       const url = `${COGNITO_ISSUER}/.well-known/jwks.json`;
@@ -73,6 +71,7 @@ const getClaim = async (token: string): Promise<Claim> => {
   if (key === undefined) {
     throw new AuthenticationError("claim made for unknown kid");
   }
+  const verifyPromised = promisify(jwt.verify.bind(jwt));
   const claim = (await verifyPromised(token, key.pem)) as Claim;
 
   return claim;
