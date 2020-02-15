@@ -38,6 +38,8 @@
     "@graphql-codegen/typescript-operations": "^1.12.2",
     "@graphql-codegen/typescript-react-apollo": "^1.12.2",
     "@graphql-codegen/typescript-resolvers": "^1.12.2",
+    "@types/jsonwebtoken": "^8.3.7",
+    "@types/jwk-to-pem": "^2.0.0",
     "@types/node": "^13.7.0",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
@@ -72,6 +74,9 @@
     "apollo-server-lambda": "^2.9.16",
     "aws-sdk": "^2.614.0",
     "dotenv": "^8.2.0",
-    "graphql": "^14.6.0"
+    "graphql": "^14.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwk-to-pem": "^2.0.3",
+    "node-fetch": "^2.6.0"
   }
 }
