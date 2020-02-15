@@ -44,7 +44,7 @@ interface Claim {
 const getClaim = async (token: string): Promise<Claim> => {
   const generatePem = async (): Promise<MapOfKidToPublicKey> => {
     const getIssuer = async (): Promise<PublicKeys> => {
-      const cognitoIssuer = `https://cognito-idp.us-east-1.amazonaws.com/${process.env.COGNITO_POOL_ID}`;
+      const cognitoIssuer = `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.COGNITO_POOL_ID}`;
       const url = `${cognitoIssuer}/.well-known/jwks.json`;
 
       const response = await fetch(url);
