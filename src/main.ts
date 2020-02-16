@@ -103,7 +103,7 @@ export default {
   typeDefs,
   resolvers,
   schemaDirectives,
-  async context(ctx: { event: any; context: any }) {
+  context: async (ctx: { event: any; context: any }) => {
     const token = ctx.event.headers.authorization || "";
 
     if (token) {
