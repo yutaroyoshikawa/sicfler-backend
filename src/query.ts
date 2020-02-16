@@ -27,7 +27,6 @@ const Query: QueryResolvers = {
   async users(_parent, args, context) {
     const res = await cognito
       .listIdentities({
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         IdentityPoolId: process.env.COGNITO_POOL_ID!,
         MaxResults: 100
       })
@@ -78,7 +77,6 @@ const Query: QueryResolvers = {
         throw new ApolloError(err);
       });
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const orners = response.Items
       ? response.Items?.map(orner => ({
           id: orner.id,
