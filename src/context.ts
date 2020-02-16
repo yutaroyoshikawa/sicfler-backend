@@ -127,7 +127,7 @@ const context = async (ctx: { event: any; context: any }) => {
   }
 
   const user = {
-    userName: "",
+    userName: token,
     role: Roles.User,
     isValid: false
   };
