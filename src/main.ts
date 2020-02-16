@@ -55,7 +55,9 @@ const getClaim = async (token: string): Promise<Claim> => {
   const generatePem = async (): Promise<MapOfKidToPublicKey> => {
     const getIssuer = async (): Promise<PublicKeys> => {
       const url = `${COGNITO_ISSUER}/.well-known/jwks.json`;
-      const response = await fetch(url);
+      const response = await fetch(url).catch(err => {
+        throw new ApolloError(err);
+      });
       return response.json();
     };
 
