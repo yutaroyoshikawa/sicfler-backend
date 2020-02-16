@@ -3,5 +3,6 @@ query user($id: ID!) {
     id
     creationDate
     lastModifiedDate
+    role
   }
 }

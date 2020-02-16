@@ -1,5 +1,0 @@
-query userDetails($id: ID!) {
-  userDetails(id: $id) {
-    role
-  }
-}

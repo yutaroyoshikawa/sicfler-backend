@@ -13,7 +13,10 @@ type User {
 }
 
 type UserDetails {
-  role: Roles
+  id: ID!
+  creationDate: DateTime!
+  lastModifiedDate: DateTime
+  role: Roles!
 }
 
 type Geolocation {
@@ -69,8 +72,7 @@ input TargetInput {
 }
 
 type Query {
-  user(id: ID!): User!
-  userDetails(id: ID!): UserDetails!
+  user(id: ID!): UserDetails!
   users: [User]!
   orner(id: ID!): Orner!
   orners: [Orner]!
