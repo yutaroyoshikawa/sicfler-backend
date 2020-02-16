@@ -151,8 +151,20 @@ const Mutation: MutationResolvers = {
     return orner;
   },
   async addPost(_parent, args) {
-    return {
-      id: "",
+    const orner = await DB.get({
+      TableName: Tables.OrnersTable,
+      Key: {
+        Name: "id",
+        Value: args.ornerId
+      }
+    })
+      .promise()
+      .catch(err => {
+        throw new Error(err);
+      });
+
+    const post = {
+      id: "hoge",
       name: args.name,
       start: args.start,
       finish: args.finish,
@@ -161,17 +173,14 @@ const Mutation: MutationResolvers = {
       images: [],
       visitors: [],
       orner: {
-        id: args.ornerId,
-        email: "",
-        name: "",
-        discription: "",
-        icon: "",
-        images: [],
-        address: "",
-        location: {
-          xIndex: 0,
-          yIndex: 0
-        }
+        id: orner.Item!.id,
+        email: orner.Item!.email,
+        name: orner.Item!.name,
+        discription: orner.Item!.discription,
+        icon: orner.Item!.icon,
+        images: orner.Item!.images,
+        address: orner.Item!.address,
+        location: orner.Item!.location
       },
       address: args.address,
       location: {
@@ -183,8 +192,31 @@ const Mutation: MutationResolvers = {
         gender: 1
       }
     };
+
+    await DB.put({
+      TableName: Tables.PostsTable,
+      Item: post
+    })
+      .promise()
+      .catch(err => {
+        throw new Error(err);
+      });
+
+    return post;
   },
   async deletePost(_parent, args) {
+    await DB.delete({
+      TableName: Tables.PostsTable,
+      Key: {
+        Name: "id",
+        Value: args.id
+      }
+    })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
     return {
       id: args.id,
       name: "",
