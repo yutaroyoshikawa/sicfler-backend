@@ -14,7 +14,7 @@ const Query: QueryResolvers = {
     }
 
     return {
-      id: context.Username,
+      id: context.userName,
       creationDate: context.UserCreateDate,
       lastModified: context.UserLastModifiedDate,
       role: context.role
