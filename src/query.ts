@@ -27,16 +27,16 @@ const Query: QueryResolvers = {
   async users() {
     const res = await cognito
       .listIdentities({
-        IdentityPoolId: `${process.env.AWS_REGION}:exQyDhJTD`,
+        IdentityPoolId: "ap-northeast-1:ad5c517b-f1a0-4abe-abd1-857916f1f80c",
         MaxResults: 60
       })
       .promise()
-      .catch(err => {
+      .catch((err: any) => {
         throw new ApolloError(err);
       });
 
     const users = res.Identities
-      ? res.Identities.map(idetity => ({
+      ? res.Identities.map((idetity: any) => ({
           id: idetity.IdentityId!,
           creationDate: idetity.CreationDate!,
           lastModified: idetity.LastModifiedDate!
