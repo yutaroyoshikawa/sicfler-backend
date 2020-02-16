@@ -38,6 +38,7 @@ provider:
       Action: 
         - dynamodb:*
         - s3:*
+        - cognito-idp:*
       Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/*"
 
 functions:
