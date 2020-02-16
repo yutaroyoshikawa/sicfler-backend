@@ -4,13 +4,13 @@ import { MutationResolvers, Roles } from "./generated/graphql";
 import { cognitoAdmin } from "./cognito";
 import DB, { Tables } from "./dynamoDB";
 
-const UserPoolId = process.env.COGNITO_POOL_ID!;
+const USER_POOL_ID = process.env.COGNITO_POOL_ID!;
 
 const Mutation: MutationResolvers = {
   async addUser(_parent, args) {
     const response = await cognitoAdmin
       .adminCreateUser({
-        UserPoolId,
+        UserPoolId: USER_POOL_ID,
         Username: args.email,
         TemporaryPassword: args.password,
         UserAttributes: [
@@ -34,7 +34,7 @@ const Mutation: MutationResolvers = {
   async deleteUser(_parent, args) {
     await cognitoAdmin
       .adminDeleteUser({
-        UserPoolId,
+        UserPoolId: USER_POOL_ID,
         Username: args.id
       })
       .promise()
@@ -51,7 +51,7 @@ const Mutation: MutationResolvers = {
   async addOrner(_parent, args) {
     await cognitoAdmin
       .adminUpdateUserAttributes({
-        UserPoolId,
+        UserPoolId: USER_POOL_ID,
         Username: args.id,
         UserAttributes: [
           {
