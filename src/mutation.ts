@@ -1,21 +1,21 @@
 import { ApolloError } from "apollo-server-lambda";
-import { generateHash } from "./crypt";
+// import { generateHash } from "./crypt";
 import { MutationResolvers } from "./generated/graphql";
-import DB, { Tables } from "./dynamoDB";
+// import DB, { Tables } from "./dynamoDB";
 import { Permissions } from "./cognito";
 
 const Mutation: MutationResolvers = {
   async addUser(_parent, args) {
-    const encryptPass = generateHash(args.password);
+    // const encryptPass = generateHash(args.password);
     try {
-      await DB.put({
-        TableName: Tables.UserTable,
-        Item: {
-          email: args.email,
-          password: encryptPass,
-          permission: Permissions.User
-        }
-      }).promise();
+      // await DB.put({
+      //   TableName: Tables.UserTable,
+      //   Item: {
+      //     email: args.email,
+      //     password: encryptPass,
+      //     permission: Permissions.User
+      //   }
+      // }).promise();
 
       return {
         email: args.email,
