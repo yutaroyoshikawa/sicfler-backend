@@ -132,7 +132,7 @@ export default {
         });
 
       const user = {
-        userName: res.Username,
+        userName: claim.username,
         creationDate: res.UserCreateDate,
         lastModified: res.UserLastModifiedDate,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
