@@ -62,7 +62,7 @@ const getClaim = async (token: string): Promise<Claim> => {
 
   const tokenSections = (token || "").split(".");
   if (tokenSections.length < 2) {
-    throw new Error("requested token is invalid");
+    throw new AuthenticationError("requested token is invalid");
   }
   const headerJSON = Buffer.from(tokenSections[0], "base64").toString("utf8");
   const header = JSON.parse(headerJSON) as TokenHeader;
@@ -83,7 +83,7 @@ const validateClaim = (claim: Claim): void => {
     throw new AuthenticationError("claim is expired or invalid");
   }
   if (claim.iss !== COGNITO_ISSUER) {
-    throw new Error("claim issuer is invalid");
+    throw new AuthenticationError("claim issuer is invalid");
   }
   if (claim.token_use !== "access") {
     throw new AuthenticationError("claim use is not access");
