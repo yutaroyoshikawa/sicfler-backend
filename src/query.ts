@@ -27,7 +27,7 @@ const Query: QueryResolvers = {
   async users() {
     const res = await cognito
       .listIdentities({
-        IdentityPoolId: process.env.COGNITO_POOL_ID!,
+        IdentityPoolId: `${process.env.AWS_REGION}:exQyDhJTD`,
         MaxResults: 60
       })
       .promise()
