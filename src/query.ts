@@ -23,8 +23,9 @@ const Query: QueryResolvers = {
       id: res.Username,
       creationDate: res.UserCreateDate,
       lastModified: res.UserLastModifiedDate,
-      role: res.UserAttributes!.find(attribute => attribute.Name === "role")
-        ?.Value as Roles
+      role:
+        (res.UserAttributes!.find(attribute => attribute.Name === "role")
+          ?.Value as Roles) || ""
     };
   },
   async users() {
