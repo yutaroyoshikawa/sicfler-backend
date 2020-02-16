@@ -103,8 +103,8 @@ export default {
   typeDefs,
   resolvers,
   schemaDirectives,
-  context: async (ctx: { event: any; context: any }) => {
-    const token = ctx.event.headers.authorization || "";
+  context: async (event: any, _context: any) => {
+    const token = event.headers.authorization || "";
 
     if (token) {
       const claim = await getClaim(token).catch(err => {
