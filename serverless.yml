@@ -41,7 +41,7 @@ provider:
         - cognito-idp:*
       Resource: 
         - "arn:aws:dynamodb:${self:provider.region}:*:table/*"
-        - "arn:aws:cognito-idp:${self:provider.region}:*:userpool/${self:provider.region}_exQyDhJTD"
+        - "arn:aws:cognito-identity:ap-northeast-1:178491375442:identitypool/ap-northeast-1_exQyDhJTD"
 
 functions:
   graphql:
