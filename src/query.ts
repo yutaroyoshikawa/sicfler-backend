@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ApolloError } from "apollo-server-lambda";
 import { QueryResolvers, Roles } from "./generated/graphql";
-import { cognito, cognitoAdmin } from "./cognito";
+import { cognitoAdmin } from "./cognito";
 import db, { Tables } from "./dynamoDB";
 
-const IDENTITY_POOL_ID = process.env.COGNITO_IDENTITY_POOL_ID!;
+// const IDENTITY_POOL_ID = process.env.COGNITO_IDENTITY_POOL_ID!;
 const USER_POOL_ID = process.env.COGNITO_POOL_ID!;
 
 const Query: QueryResolvers = {
@@ -29,21 +29,20 @@ const Query: QueryResolvers = {
     };
   },
   async users() {
-    const res = await cognito
-      .listIdentities({
-        IdentityPoolId: IDENTITY_POOL_ID,
-        MaxResults: 60
+    const res = await cognitoAdmin
+      .listUsers({
+        UserPoolId: USER_POOL_ID
       })
       .promise()
       .catch(err => {
         throw new ApolloError(err);
       });
 
-    const users = res.Identities
-      ? res.Identities.map(idetity => ({
-          id: idetity.IdentityId!,
-          creationDate: idetity.CreationDate!,
-          lastModified: idetity.LastModifiedDate!
+    const users = res.Users
+      ? res.Users.map(idetity => ({
+          id: idetity.Username!,
+          creationDate: idetity.UserCreateDate!,
+          lastModified: idetity.UserLastModifiedDate!
         }))
       : [];
 
