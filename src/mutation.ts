@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ApolloError } from "apollo-server-lambda";
 import { MutationResolvers, Roles } from "./generated/graphql";
-import { cognitoAdmin } from "./cognito";
+import { cognitoAdmin, Attributes } from "./cognito";
 import DB, { Tables } from "./dynamoDB";
 
 const USER_POOL_ID = process.env.COGNITO_POOL_ID!;
@@ -15,7 +15,7 @@ const Mutation: MutationResolvers = {
         TemporaryPassword: args.password,
         UserAttributes: [
           {
-            Name: "custom:role",
+            Name: Attributes.Role,
             Value: Roles.User
           }
         ]
@@ -55,7 +55,7 @@ const Mutation: MutationResolvers = {
         Username: args.id,
         UserAttributes: [
           {
-            Name: "role",
+            Name: Attributes.Role,
             Value: Roles.Orner
           }
         ]

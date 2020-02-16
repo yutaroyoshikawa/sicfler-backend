@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ApolloError } from "apollo-server-lambda";
 import { QueryResolvers, Roles } from "./generated/graphql";
-import { cognitoAdmin } from "./cognito";
+import { cognitoAdmin, Attributes } from "./cognito";
 import db, { Tables } from "./dynamoDB";
 
 // const IDENTITY_POOL_ID = process.env.COGNITO_IDENTITY_POOL_ID!;
@@ -24,8 +24,9 @@ const Query: QueryResolvers = {
       creationDate: res.UserCreateDate,
       lastModified: res.UserLastModifiedDate,
       role:
-        (res.UserAttributes!.find(attribute => attribute.Name === "role")
-          ?.Value as Roles) || ""
+        (res.UserAttributes!.find(
+          attribute => attribute.Name === Attributes.Role
+        )?.Value as Roles) || ""
     };
   },
   async users() {
