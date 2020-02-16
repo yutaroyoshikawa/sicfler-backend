@@ -12,9 +12,3 @@ export const cognitoAdmin = new CognitoIdentityServiceProvider({
 });
 
 export const cognito = new CognitoIdentity({ apiVersion: "2014-06-30" });
-
-export enum Permissions {
-  Admin = "ADMIN",
-  Orner = "ORNER",
-  User = "USER"
-}
