@@ -10,7 +10,7 @@ const USER_POOL_ID = process.env.COGNITO_POOL_ID!;
 const Query: QueryResolvers = {
   async myInfo(_parent, _args, context) {
     if (!context.isValid || !context.userName) {
-      throw new AuthenticationError(JSON.stringify(context));
+      throw new AuthenticationError("アクセス権限がありません");
     }
 
     return {
