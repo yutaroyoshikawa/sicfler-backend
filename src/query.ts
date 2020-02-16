@@ -28,7 +28,7 @@ const Query: QueryResolvers = {
     const res = await cognito
       .listIdentities({
         IdentityPoolId: process.env.COGNITO_POOL_ID!,
-        MaxResults: 100
+        MaxResults: 60
       })
       .promise()
       .catch(err => {
