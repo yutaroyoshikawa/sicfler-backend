@@ -59,7 +59,9 @@ const getClaim = async (token: string): Promise<Claim> => {
       return response.json();
     };
 
-    const json = await getIssuer();
+    const json = await getIssuer().catch(err => {
+      throw new ApolloError(err);
+    });
 
     return json.keys.reduce((agg: any, current: any) => {
       const pem = jwkToPem(current as any);
@@ -75,13 +77,17 @@ const getClaim = async (token: string): Promise<Claim> => {
   }
   const headerJSON = Buffer.from(tokenSections[0], "base64").toString("utf8");
   const header = JSON.parse(headerJSON) as TokenHeader;
-  const keys = await generatePem();
+  const keys = await generatePem().catch(err => {
+    throw new ApolloError(err);
+  });
   const key = keys[header.kid];
   if (key === undefined) {
     throw new AuthenticationError("claim made for unknown kid");
   }
   const verifyPromised = promisify(jwt.verify.bind(jwt));
-  const claim = (await verifyPromised(token, key.pem)) as Claim;
+  const claim = (await verifyPromised(token, key.pem).catch(err => {
+    throw new ApolloError(err);
+  })) as Claim;
 
   return claim;
 };
@@ -103,8 +109,8 @@ export default {
   typeDefs,
   resolvers,
   schemaDirectives,
-  context: async (event: any, _context: any) => {
-    const token = event.headers.authorization || "";
+  context: async (ctx: { event: any; context: any }) => {
+    const token = ctx.event.headers.authorization || "";
 
     if (token) {
       const claim = await getClaim(token).catch(err => {
