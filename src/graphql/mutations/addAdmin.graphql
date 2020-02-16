@@ -1,0 +1,11 @@
+mutation addAdmin(
+  $id: ID!
+) {
+  addAdmin(
+    id: $id
+  ) {
+    id
+    creationDate
+    lastModifiedDate
+  }
+}

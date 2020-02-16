@@ -1,6 +1,7 @@
 query users {
   users {
-    email
-    permission
+    id
+    creationDate
+    lastModifiedDate
   }
 }

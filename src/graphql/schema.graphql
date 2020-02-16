@@ -1,9 +1,19 @@
 scalar DateTime
 
+enum Roles {
+  admin
+  orner
+  user
+}
+
 type User {
-  email: ID!
-  password: String!
-  permission: String!
+  id: ID!
+  creationDate: DateTime!
+  lastModifiedDate: DateTime
+}
+
+type UserDetails {
+  role: Roles
 }
 
 type Geolocation {
@@ -59,7 +69,8 @@ input TargetInput {
 }
 
 type Query {
-  user(email: ID!): User!
+  user(id: ID!): User!
+  userDetails(id: ID!): UserDetails!
   users: [User]!
   orner(id: ID!): Orner!
   orners: [Orner]!
@@ -68,10 +79,11 @@ type Query {
 }
 
 type Mutation {
-  addUser(email: ID!, password: String!): User!
-  deleteUser(email: ID!): User!
+  addUser(email: String!, password: String!): User!
+  deleteUser(id: ID!): User!
   addOrner(
-    email: ID!,
+    id: ID!
+    email: String!,
     name: String!,
     discription: String,
     icon: String,
@@ -89,6 +101,7 @@ type Mutation {
     address: String,
     location: GeolocationInput
   ): Orner!
+  addAdmin(id: ID!): User!
   addPost(
     name: String!,
     start: DateTime!,

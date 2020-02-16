@@ -1,5 +1,6 @@
 mutation addOrner(
-  $email: ID!,
+  $id: ID!,
+  $email: String!,
   $name: String!,
   $discription: String,
   $icon: String,
@@ -8,6 +9,7 @@ mutation addOrner(
   $location: GeolocationInput
 ) {
   addOrner(
+    id: $id,
     email: $email,
     name: $name,
     discription: $discription,

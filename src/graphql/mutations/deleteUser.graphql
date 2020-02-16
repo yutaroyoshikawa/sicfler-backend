@@ -1,6 +1,5 @@
-mutation deleteUser($email: ID!) {
-  deleteUser(email: $email) {
-    email
-    permission
+mutation deleteUser($id: ID!) {
+  deleteUser(id: $id) {
+    id
   }
 }

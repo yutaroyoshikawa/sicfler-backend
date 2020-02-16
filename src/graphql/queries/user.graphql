@@ -1,6 +1,7 @@
-query user($email: ID!) {
-  user(email: $email) {
-    email
-    permission
+query user($id: ID!) {
+  user(id: $id) {
+    id
+    creationDate
+    lastModifiedDate
   }
 }
