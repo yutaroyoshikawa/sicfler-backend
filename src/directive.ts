@@ -29,6 +29,8 @@ class ValidateRoleDirective extends SchemaDirectiveVisitor {
   };
 }
 
-export default {
+const directives = {
   ValidateRoleDirective
 };
+
+export default directives;
