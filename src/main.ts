@@ -112,7 +112,7 @@ export default {
   resolvers,
   schemaDirectives,
   context: async (ctx: { event: any; context: any }) => {
-    const token = ctx.event.headers.authorization || "";
+    const token = ctx.event.headers.Authorization || "";
 
     if (token) {
       const claim = await getClaim(token).catch(err => {
@@ -146,7 +146,7 @@ export default {
     }
 
     const user = {
-      userName: JSON.stringify(ctx.event),
+      userName: "",
       role: Roles.User,
       isValid: false
     };
