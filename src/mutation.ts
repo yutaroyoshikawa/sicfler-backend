@@ -1,36 +1,36 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ApolloError } from "apollo-server-lambda";
-// import { generateHash } from "./crypt";
 import { MutationResolvers } from "./generated/graphql";
 // import DB, { Tables } from "./dynamoDB";
-import { Permissions } from "./cognito";
+import { cognitoAdmin } from "./cognito";
 
 const Mutation: MutationResolvers = {
   async addUser(_parent, args) {
-    // const encryptPass = generateHash(args.password);
-    try {
-      // await DB.put({
-      //   TableName: Tables.UserTable,
-      //   Item: {
-      //     email: args.email,
-      //     password: encryptPass,
-      //     permission: Permissions.User
-      //   }
-      // }).promise();
+    const response = await cognitoAdmin
+      .adminCreateUser()
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
 
-      return {
-        email: args.email,
-        password: args.password,
-        permission: Permissions.User
-      };
-    } catch (e) {
-      throw new ApolloError(e);
-    }
+    return {
+      id: response.User?.Username!,
+      creationDate: response.User?.UserCreateDate,
+      lastModifiedDate: response.User?.UserLastModifiedDate
+    };
   },
   async deleteUser(_parent, args) {
+    await cognitoAdmin
+      .adminDeleteUser()
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
     return {
-      email: args.email,
-      password: "",
-      permission: "user"
+      id: args.id,
+      creationDate: null,
+      lastModifiedDate: null
     };
   },
   async addOrner(_parent, args) {
