@@ -4,11 +4,13 @@ import Query from "./query";
 import { Resolvers } from "./generated/graphql";
 import typeDefs from "./graphql/schema.graphql";
 import context from "./context";
+import schemaDirectives from "./directive";
 
 const resolvers: Resolvers = { Query, Mutation };
 
 export default {
   typeDefs,
   resolvers,
-  context
+  context,
+  schemaDirectives
 } as Config;
