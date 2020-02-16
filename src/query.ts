@@ -35,12 +35,12 @@ const Query: QueryResolvers = {
         MaxResults: 60
       })
       .promise()
-      .catch((err: any) => {
+      .catch(err => {
         throw new ApolloError(err);
       });
 
     const users = res.Identities
-      ? res.Identities.map((idetity: any) => ({
+      ? res.Identities.map(idetity => ({
           id: idetity.IdentityId!,
           creationDate: idetity.CreationDate!,
           lastModified: idetity.LastModifiedDate!
