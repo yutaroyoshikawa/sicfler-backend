@@ -97,46 +97,76 @@ const Query: QueryResolvers = {
     return orners;
   },
   async post(_parent, args) {
+    const response = await db
+      .get({
+        TableName: Tables.PostsTable,
+        Key: {
+          Name: "id",
+          Value: args.id
+        }
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    const orner = await db
+      .get({
+        TableName: Tables.OrnersTable,
+        Key: {
+          Name: "id",
+          Value: response.Item!.orderId
+        }
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
     return {
-      id: args.id,
-      name: "",
-      start: new Date(),
-      finish: new Date(),
-      images: [],
-      visitors: [],
+      id: response.Item!.id,
+      name: response.Item!.name,
+      start: response.Item!.start,
+      finish: response.Item!.finish,
+      images: response.Item!.images,
+      visitors: response.Item!.visitors,
       orner: {
-        id: "",
-        email: "",
-        name: "",
-        images: []
+        id: orner.Item!.id,
+        email: orner.Item!.email,
+        name: orner.Item!.name,
+        images: orner.Item!.images
       },
-      target: {
-        ageGroup: 20,
-        gender: 0
-      }
+      target: response.Item!.target
     };
   },
   async posts() {
-    return [
-      {
-        id: "",
-        name: "",
-        start: new Date(),
-        finish: new Date(),
-        images: [],
-        visitors: [],
-        orner: {
-          id: "",
-          email: "",
-          name: "",
-          images: []
-        },
-        target: {
-          ageGroup: 20,
-          gender: 0
-        }
-      }
-    ];
+    const response = await db
+      .scan({
+        TableName: Tables.PostsTable
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    const posts = response.Items!.map(async post => {
+      const orner = await db
+        .get({
+          TableName: Tables.OrnersTable,
+          Key: {
+            Name: "id",
+            Value: post.ornerId
+          }
+        })
+        .promise()
+        .catch(err => {
+          throw new ApolloError(err);
+        });
+
+      return orner;
+    });
+
+    return posts as any;
   }
 };
 
