@@ -141,19 +141,6 @@ resources:
         CloudFrontOriginAccessIdentityConfig:
           Comment:
             Ref: AWS::StackName
-    UsersTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: "${self:service}-users"
-        AttributeDefinitions:
-          - AttributeName: email
-            AttributeType: S
-        KeySchema:
-          - AttributeName: email
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
     PostsTable:
       Type: AWS::DynamoDB::Table
       Properties:
