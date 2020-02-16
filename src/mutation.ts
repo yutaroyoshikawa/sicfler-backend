@@ -150,6 +150,42 @@ const Mutation: MutationResolvers = {
 
     return orner;
   },
+  async addAdmin(_parent, args) {
+    await cognitoAdmin
+      .adminUpdateUserAttributes({
+        UserPoolId: USER_POOL_ID,
+        Username: args.id,
+        UserAttributes: [
+          {
+            Name: Attributes.Role,
+            Value: Roles.Admin
+          }
+        ]
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    const user = await cognitoAdmin
+      .adminGetUser({
+        UserPoolId: USER_POOL_ID,
+        Username: args.id
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    return {
+      id: user.Username,
+      creationDate: user.UserCreateDate,
+      lastModifiedDate: user.UserLastModifiedDate,
+      role: user.UserAttributes?.find(
+        attribute => attribute.Name === Attributes.Role
+      )?.Value
+    };
+  },
   async addPost(_parent, args) {
     const orner = await DB.get({
       TableName: Tables.OrnersTable,
