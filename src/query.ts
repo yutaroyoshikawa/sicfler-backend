@@ -12,7 +12,7 @@ const Query: QueryResolvers = {
     const res = await cognitoAdmin
       .adminGetUser({
         UserPoolId: USER_POOL_ID,
-        Username: context.id
+        Username: context.userName
       })
       .promise()
       .catch(err => {
