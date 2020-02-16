@@ -3,7 +3,7 @@ import { CognitoIdentity, config } from "aws-sdk";
 
 config.update({ region: process.env.AWS_REGION! });
 
-const cognito = new CognitoIdentity({ apiVersion: "2012-08-10" });
+const cognito = new CognitoIdentity();
 
 export enum Permissions {
   Admin = "ADMIN",
