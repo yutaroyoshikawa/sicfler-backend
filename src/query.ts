@@ -24,7 +24,7 @@ const Query: QueryResolvers = {
         ?.Value as Roles
     };
   },
-  async users(_parent, args, context) {
+  async users() {
     const res = await cognito
       .listIdentities({
         IdentityPoolId: process.env.COGNITO_POOL_ID!,
