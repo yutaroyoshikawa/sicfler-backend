@@ -4,11 +4,14 @@ import { QueryResolvers, Roles } from "./generated/graphql";
 import { cognito, cognitoAdmin } from "./cognito";
 import db, { Tables } from "./dynamoDB";
 
+const IdentityPoolId = process.env.COGNITO_IDENTITY_POOL_ID!;
+const UserPoolId = process.env.COGNITO_POOL_ID!;
+
 const Query: QueryResolvers = {
   async user(_parent, args) {
     const res = await cognitoAdmin
       .adminGetUser({
-        UserPoolId: args.id,
+        UserPoolId,
         Username: args.id
       })
       .promise()
@@ -27,7 +30,7 @@ const Query: QueryResolvers = {
   async users() {
     const res = await cognito
       .listIdentities({
-        IdentityPoolId: "ap-northeast-1:ad5c517b-f1a0-4abe-abd1-857916f1f80c",
+        IdentityPoolId,
         MaxResults: 60
       })
       .promise()
