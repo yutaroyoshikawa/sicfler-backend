@@ -146,7 +146,7 @@ export default {
     }
 
     const user = {
-      userName: `token:${token}`,
+      userName: JSON.stringify(ctx.event),
       role: Roles.User,
       isValid: false
     };
