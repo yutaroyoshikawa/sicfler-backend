@@ -15,7 +15,7 @@ const Mutation: MutationResolvers = {
         TemporaryPassword: args.password,
         UserAttributes: [
           {
-            Name: "role",
+            Name: "custom:role",
             Value: Roles.User
           }
         ]
