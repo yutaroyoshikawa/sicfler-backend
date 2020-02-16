@@ -6,10 +6,11 @@ import {
   config
 } from "aws-sdk";
 
-config.update({ region: process.env.AWS_REGION! });
-
-config.credentials = new CognitoIdentityCredentials({
-  IdentityPoolId: process.env.COGNITO_IDENTITY_POOL_ID!
+config.update({
+  region: process.env.AWS_REGION!,
+  credentials: new CognitoIdentityCredentials({
+    IdentityPoolId: process.env.COGNITO_IDENTITY_POOL_ID!
+  })
 });
 
 export const cognitoAdmin = new CognitoIdentityServiceProvider({
