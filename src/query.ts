@@ -8,6 +8,26 @@ import db, { Tables } from "./dynamoDB";
 const USER_POOL_ID = process.env.COGNITO_POOL_ID!;
 
 const Query: QueryResolvers = {
+  async myInfo(_parent, _args, context) {
+    const res = await cognitoAdmin
+      .adminGetUser({
+        UserPoolId: USER_POOL_ID,
+        Username: context.id
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    return {
+      id: res.Username,
+      creationDate: res.UserCreateDate,
+      lastModified: res.UserLastModifiedDate,
+      role: res.UserAttributes?.find(
+        attribute => attribute.Name === Attributes.Role
+      )?.Value as Roles
+    };
+  },
   async user(_parent, args) {
     const res = await cognitoAdmin
       .adminGetUser({

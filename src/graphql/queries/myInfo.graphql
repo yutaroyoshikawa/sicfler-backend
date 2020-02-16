@@ -1,0 +1,8 @@
+query myInfo {
+  myInfo {
+    id
+    creationDate
+    lastModifiedDate
+    role
+  }
+}
