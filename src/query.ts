@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ApolloError } from "apollo-server-lambda";
+import { ApolloError, AuthenticationError } from "apollo-server-lambda";
 import { QueryResolvers, Roles } from "./generated/graphql";
 import { cognitoAdmin, Attributes } from "./cognito";
 import db, { Tables } from "./dynamoDB";
@@ -9,23 +9,15 @@ const USER_POOL_ID = process.env.COGNITO_POOL_ID!;
 
 const Query: QueryResolvers = {
   async myInfo(_parent, _args, context) {
-    const res = await cognitoAdmin
-      .adminGetUser({
-        UserPoolId: USER_POOL_ID,
-        Username: context.userName
-      })
-      .promise()
-      .catch(err => {
-        throw new ApolloError(err);
-      });
+    if (!context.isValid || !context.userName) {
+      throw new AuthenticationError("アクセス権限がありません。");
+    }
 
     return {
-      id: res.Username,
-      creationDate: res.UserCreateDate,
-      lastModified: res.UserLastModifiedDate,
-      role: res.UserAttributes?.find(
-        attribute => attribute.Name === Attributes.Role
-      )?.Value as Roles
+      id: context.Username,
+      creationDate: context.UserCreateDate,
+      lastModified: context.UserLastModifiedDate,
+      role: context.role
     };
   },
   async user(_parent, args) {

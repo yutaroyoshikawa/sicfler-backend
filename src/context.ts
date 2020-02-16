@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import jwkToPem from "jwk-to-pem";
 import fetch from "node-fetch";
 import { Roles } from "./generated/graphql";
-import { cognitoAdmin } from "./cognito";
+import { cognitoAdmin, Attributes } from "./cognito";
 
 interface TokenHeader {
   kid: string;
@@ -114,9 +114,12 @@ const context = async (ctx: { event: any; context: any }) => {
 
     const user = {
       userName: res.Username,
+      creationDate: res.UserCreateDate,
+      lastModified: res.UserLastModifiedDate,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      role: res.UserAttributes!.find(attribute => attribute.Name === "role")!
-        .Value,
+      role: res.UserAttributes!.find(
+        attribute => attribute.Name === Attributes.Role
+      )!.Value as Roles,
       isValid: true
     };
 
