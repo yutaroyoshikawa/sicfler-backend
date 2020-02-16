@@ -146,7 +146,7 @@ export default {
     }
 
     const user = {
-      userName: token,
+      userName: `token:${token}`,
       role: Roles.User,
       isValid: false
     };
