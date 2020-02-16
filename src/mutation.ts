@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ApolloError } from "apollo-server-lambda";
+import nanoid from "nanoid";
 import { MutationResolvers, Roles } from "./generated/graphql";
 import { cognitoAdmin, Attributes } from "./cognito";
 import DB, { Tables } from "./dynamoDB";
@@ -199,8 +200,10 @@ const Mutation: MutationResolvers = {
         throw new Error(err);
       });
 
+    const id = nanoid();
+
     const post = {
-      id: "hoge",
+      id,
       name: args.name,
       start: args.start,
       finish: args.finish,

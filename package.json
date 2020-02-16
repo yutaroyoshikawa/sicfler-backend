@@ -40,6 +40,7 @@
     "@graphql-codegen/typescript-resolvers": "^1.12.2",
     "@types/jsonwebtoken": "^8.3.7",
     "@types/jwk-to-pem": "^2.0.0",
+    "@types/nanoid": "^2.1.0",
     "@types/node": "^13.7.0",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
@@ -77,6 +78,7 @@
     "graphql": "^14.6.0",
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.3",
+    "nanoid": "^2.1.11",
     "node-fetch": "^2.6.0"
   }
 }
