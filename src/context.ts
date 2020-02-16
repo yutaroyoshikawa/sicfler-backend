@@ -93,7 +93,6 @@ const validateClaim = (claim: Claim): void => {
 };
 
 const context = async (ctx: { event: any; context: any }) => {
-  console.log(ctx.event.authorization);
 
   const token = ctx.event.headers.authorization || "";
 
