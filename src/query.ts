@@ -42,7 +42,7 @@ const Query: QueryResolvers = {
       role:
         (res.UserAttributes!.find(
           attribute => attribute.Name === Attributes.Role
-        )?.Value as Roles) || ""
+        )?.Value as Roles) || Roles.User
     };
   },
   async users() {
@@ -66,7 +66,7 @@ const Query: QueryResolvers = {
           role:
             (idetity.Attributes!.find(
               attribute => attribute.Name === Attributes.Role
-            )?.Value as Roles) || ""
+            )?.Value as Roles) || Roles.User
         }))
       : [];
 

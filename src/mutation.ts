@@ -36,7 +36,7 @@ const Mutation: MutationResolvers = {
       role:
         (response.User?.Attributes?.find(
           attribute => attribute.Name === Attributes.Role
-        )?.Value as Roles) || ""
+        )?.Value as Roles) || Roles.User
     };
   },
   async deleteUser(_parent, args) {
@@ -193,7 +193,7 @@ const Mutation: MutationResolvers = {
       role:
         (user.UserAttributes?.find(
           attribute => attribute.Name === Attributes.Role
-        )?.Value as Roles) || ""
+        )?.Value as Roles) || Roles.User
     };
   },
   async addPost(_parent, args) {
