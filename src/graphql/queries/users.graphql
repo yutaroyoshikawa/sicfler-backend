@@ -3,5 +3,7 @@ query users {
     id
     creationDate
     lastModifiedDate
+    email
+    role
   }
 }

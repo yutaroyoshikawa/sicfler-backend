@@ -28,8 +28,15 @@ const Mutation: MutationResolvers = {
 
     return {
       id: response.User?.Username!,
-      creationDate: response.User?.UserCreateDate,
-      lastModifiedDate: response.User?.UserLastModifiedDate
+      creationDate: response.User?.UserCreateDate!,
+      lastModifiedDate: response.User?.UserLastModifiedDate,
+      email: response.User?.Attributes?.find(
+        attribute => attribute.Name === Attributes.Email
+      )?.Value!,
+      role:
+        (response.User?.Attributes?.find(
+          attribute => attribute.Name === Attributes.Role
+        )?.Value as Roles) || ""
     };
   },
   async deleteUser(_parent, args) {
@@ -44,9 +51,7 @@ const Mutation: MutationResolvers = {
       });
 
     return {
-      id: args.id,
-      creationDate: null,
-      lastModifiedDate: null
+      id: args.id
     };
   },
   async addOrner(_parent, args) {
@@ -180,11 +185,15 @@ const Mutation: MutationResolvers = {
 
     return {
       id: user.Username,
-      creationDate: user.UserCreateDate,
-      lastModifiedDate: user.UserLastModifiedDate,
-      role: user.UserAttributes?.find(
-        attribute => attribute.Name === Attributes.Role
-      )?.Value
+      creationDate: user.UserCreateDate!,
+      lastModifiedDate: user.UserLastModifiedDate!,
+      email: user.UserAttributes?.find(
+        attribute => attribute.Name === Attributes.Email
+      )?.Value!,
+      role:
+        (user.UserAttributes?.find(
+          attribute => attribute.Name === Attributes.Role
+        )?.Value as Roles) || ""
     };
   },
   async addPost(_parent, args) {
@@ -257,22 +266,7 @@ const Mutation: MutationResolvers = {
       });
 
     return {
-      id: args.id,
-      name: "",
-      start: new Date(),
-      finish: new Date(),
-      images: [],
-      visitors: [],
-      orner: {
-        id: "",
-        email: "",
-        name: "",
-        images: []
-      },
-      target: {
-        ageGroup: 20,
-        gender: 0
-      }
+      id: args.id
     };
   }
 };

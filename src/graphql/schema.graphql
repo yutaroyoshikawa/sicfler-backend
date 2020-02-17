@@ -10,13 +10,12 @@ type User {
   id: ID!
   creationDate: DateTime!
   lastModifiedDate: DateTime
+  email: String!
+  role: Roles!
 }
 
-type UserDetails {
+type ReturnDelete {
   id: ID!
-  creationDate: DateTime!
-  lastModifiedDate: DateTime
-  role: Roles!
 }
 
 type Geolocation {
@@ -72,8 +71,8 @@ input TargetInput {
 }
 
 type Query {
-  myInfo: UserDetails!
-  user(id: ID!): UserDetails!
+  myInfo: User!
+  user(id: ID!): User!
   users: [User]!
   orner(id: ID!): Orner!
   orners: [Orner]!
@@ -83,7 +82,7 @@ type Query {
 
 type Mutation {
   addUser(email: String!, password: String!): User!
-  deleteUser(id: ID!): User!
+  deleteUser(id: ID!): ReturnDelete!
   addOrner(
     id: ID!
     email: String!,
@@ -117,5 +116,5 @@ type Mutation {
     location: GeolocationInput
     target: TargetInput!
   ): Post!
-  deletePost(id: ID!): Post!
+  deletePost(id: ID!): ReturnDelete!
 }

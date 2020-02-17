@@ -17,6 +17,7 @@ const Query: QueryResolvers = {
       id: context.userName,
       creationDate: context.creationDate,
       lastModified: context.lastModified,
+      email: context.email,
       role: context.role
     };
   },
@@ -35,6 +36,9 @@ const Query: QueryResolvers = {
       id: res.Username,
       creationDate: res.UserCreateDate,
       lastModified: res.UserLastModifiedDate,
+      email: res.UserAttributes!.find(
+        attribute => attribute.Name === Attributes.Email
+      )?.Value!,
       role:
         (res.UserAttributes!.find(
           attribute => attribute.Name === Attributes.Role
@@ -55,7 +59,14 @@ const Query: QueryResolvers = {
       ? res.Users.map(idetity => ({
           id: idetity.Username!,
           creationDate: idetity.UserCreateDate!,
-          lastModified: idetity.UserLastModifiedDate!
+          lastModified: idetity.UserLastModifiedDate!,
+          email: idetity.Attributes!.find(
+            attribute => attribute.Name === Attributes.Email
+          )?.Value!,
+          role:
+            (idetity.Attributes!.find(
+              attribute => attribute.Name === Attributes.Role
+            )?.Value as Roles) || ""
         }))
       : [];
 

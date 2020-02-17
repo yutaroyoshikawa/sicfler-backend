@@ -3,6 +3,7 @@ query myInfo {
     id
     creationDate
     lastModifiedDate
+    email
     role
   }
 }
