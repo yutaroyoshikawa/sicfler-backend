@@ -135,6 +135,9 @@ export default {
         userName: res.Username,
         creationDate: res.UserCreateDate,
         lastModified: res.UserLastModifiedDate,
+        email: res.UserAttributes?.find(
+          attribute => attribute.Name === Attributes.Email
+        )?.Value,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         role: res.UserAttributes!.find(
           attribute => attribute.Name === Attributes.Role
