@@ -1,0 +1,9 @@
+mutation updateUser($id: ID!, $email: String!, $role: Roles!) {
+  updateUser(id: $id, email: $email, role: $role) {
+    id
+    creationDate
+    lastModifiedDate
+    email
+    role
+  }
+}

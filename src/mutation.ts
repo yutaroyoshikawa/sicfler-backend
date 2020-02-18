@@ -156,7 +156,7 @@ const Mutation: MutationResolvers = {
 
     return orner;
   },
-  async addAdmin(_parent, args) {
+  async updateUser(_parent, args) {
     await cognitoAdmin
       .adminUpdateUserAttributes({
         UserPoolId: USER_POOL_ID,
@@ -164,7 +164,11 @@ const Mutation: MutationResolvers = {
         UserAttributes: [
           {
             Name: Attributes.Role,
-            Value: Roles.Admin
+            Value: args.role
+          },
+          {
+            Name: Attributes.Email,
+            Value: args.email
           }
         ]
       })

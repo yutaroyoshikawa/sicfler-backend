@@ -1,0 +1,5 @@
+mutation deleteOrner($id: ID!) {
+  deleteOrner(id: $id) {
+    id
+  }
+}

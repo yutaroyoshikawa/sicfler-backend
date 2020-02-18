@@ -82,6 +82,7 @@ type Query {
 
 type Mutation {
   addUser(email: String!, password: String!): User!
+  updateUser(id: ID!, email: String!, role: Roles!): User!
   deleteUser(id: ID!): ReturnDelete!
   addOrner(
     id: ID!
@@ -103,8 +104,21 @@ type Mutation {
     address: String,
     location: GeolocationInput
   ): Orner!
-  addAdmin(id: ID!): User!
+  deleteOrner(id: ID!): ReturnDelete!
   addPost(
+    name: String!,
+    start: DateTime!,
+    finish: DateTime!,
+    discription: String,
+    sumbnail: String,
+    images: [String]!,
+    ornerId: String!,
+    address: String,
+    location: GeolocationInput
+    target: TargetInput!
+  ): Post!
+  updatePost(
+    id: ID!
     name: String!,
     start: DateTime!,
     finish: DateTime!,
