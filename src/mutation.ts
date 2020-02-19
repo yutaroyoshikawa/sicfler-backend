@@ -156,6 +156,39 @@ const Mutation: MutationResolvers = {
 
     return orner;
   },
+  async deleteOrner(_parent, args) {
+    await DB.delete({
+      TableName: Tables.OrnersTable,
+      Key: {
+        Name: "id",
+        Value: args.id
+      }
+    })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    await cognitoAdmin
+      .adminUpdateUserAttributes({
+        UserPoolId: USER_POOL_ID,
+        Username: args.id,
+        UserAttributes: [
+          {
+            Name: Attributes.Role,
+            Value: Roles.User
+          }
+        ]
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    return {
+      id: args.id
+    };
+  },
   async updateUser(_parent, args) {
     await cognitoAdmin
       .adminUpdateUserAttributes({
