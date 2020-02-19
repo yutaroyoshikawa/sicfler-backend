@@ -166,7 +166,7 @@ const Mutation: MutationResolvers = {
     })
       .promise()
       .catch(err => {
-        throw new ApolloError(err);
+        throw new ApolloError(args.id);
       });
 
     await cognitoAdmin
