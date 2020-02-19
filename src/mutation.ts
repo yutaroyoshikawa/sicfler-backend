@@ -165,7 +165,7 @@ const Mutation: MutationResolvers = {
     })
       .promise()
       .catch(err => {
-        throw new ApolloError(args.id);
+        throw new ApolloError(err);
       });
 
     await cognitoAdmin
@@ -292,8 +292,7 @@ const Mutation: MutationResolvers = {
     await DB.delete({
       TableName: Tables.PostsTable,
       Key: {
-        Name: "id",
-        Value: args.id
+        id: args.id
       }
     })
       .promise()
