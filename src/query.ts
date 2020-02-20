@@ -90,7 +90,10 @@ const Query: QueryResolvers = {
       email: response.Item!.email,
       name: response.Item!.name,
       discription: response.Item!.discription,
-      images: response.Item!.images
+      icon: response.Item!.icon,
+      images: response.Item!.images,
+      address: response.Item!.address,
+      location: response.Item!.location
     };
   },
   async orners() {
