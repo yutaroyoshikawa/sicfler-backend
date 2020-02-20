@@ -77,8 +77,7 @@ const Query: QueryResolvers = {
       .get({
         TableName: Tables.OrnersTable,
         Key: {
-          Name: "id",
-          Value: args.id
+          id: args.id
         }
       })
       .promise()
