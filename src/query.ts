@@ -169,7 +169,7 @@ const Query: QueryResolvers = {
       const posts = await db
         .query({
           TableName: Tables.PostsTable,
-          FilterExpression: "#key = :key",
+          KeyConditionExpression: "#key = :key",
           ExpressionAttributeNames: {
             "#key": "ornerId"
           },
