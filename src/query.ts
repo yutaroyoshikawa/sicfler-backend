@@ -195,23 +195,25 @@ const Query: QueryResolvers = {
         });
 
       const includedOrnerInfoPosts: any[] = [];
-      posts.Items!.forEach(post => {
-        const result = {
-          id: post.id,
-          name: post.name,
-          start: post.start,
-          finish: post.finish,
-          discription: post.discription,
-          sumbnail: post.sumbnail,
-          images: post.images,
-          visitors: post.visitors,
-          orner,
-          address: post.address,
-          location: post.location,
-          target: post.target
-        };
-        includedOrnerInfoPosts.push(result);
-      });
+      Promise.all(
+        posts.Items!.map(async post => {
+          const result = {
+            id: post.id,
+            name: post.name,
+            start: post.start,
+            finish: post.finish,
+            discription: post.discription,
+            sumbnail: post.sumbnail,
+            images: post.images,
+            visitors: post.visitors,
+            orner,
+            address: post.address,
+            location: post.location,
+            target: post.target
+          };
+          includedOrnerInfoPosts.push(result);
+        })
+      );
 
       return includedOrnerInfoPosts as any;
     }
