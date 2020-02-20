@@ -164,23 +164,19 @@ const Query: QueryResolvers = {
       target: response.Item!.target
     };
   },
-  async posts() {
-    const response = await db
-      .scan({
-        TableName: Tables.PostsTable
-      })
-      .promise()
-      .catch(err => {
-        throw new ApolloError(err);
-      });
-
-    const posts = response.Items!.map(async post => {
-      const orner = await db
-        .get({
-          TableName: Tables.OrnersTable,
-          Key: {
-            Name: "id",
-            Value: post.ornerId
+  async posts(_parent, args) {
+    if (args.ornerId) {
+      const posts = await db
+        .scan({
+          TableName: Tables.PostsTable,
+          FilterExpression: "#key = :key",
+          ExpressionAttributeNames: {
+            "#key": "ornerId"
+          },
+          ExpressionAttributeValues: {
+            ":key": {
+              S: args.ornerId
+            }
           }
         })
         .promise()
@@ -188,10 +184,37 @@ const Query: QueryResolvers = {
           throw new ApolloError(err);
         });
 
-      return orner;
-    });
+      const orner = await db
+        .get({
+          TableName: Tables.OrnersTable,
+          Key: {
+            id: args.ornerId
+          }
+        })
+        .promise()
+        .catch(err => {
+          throw new ApolloError(err);
+        });
 
-    return posts as any;
+      const includedOrnerInfoPosts = posts.Items?.map(post => ({
+        id: post.id,
+        name: post.name,
+        start: post.start,
+        finish: post.finish,
+        discription: post.discription,
+        sumbnail: post.sumbnail,
+        images: post.images,
+        visitors: post.visitors,
+        orner,
+        address: post.address,
+        location: post.location,
+        target: post.target
+      }));
+
+      return includedOrnerInfoPosts as any;
+    }
+
+    throw new ApolloError("idを今は指定してください。");
   }
 };
 

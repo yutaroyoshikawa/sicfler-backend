@@ -77,7 +77,7 @@ type Query {
   orner(id: ID!): Orner!
   orners: [Orner]!
   post(id: ID!): Post!
-  posts: [Post]!
+  posts(ornerId: ID): [Post]!
 }
 
 type Mutation {
