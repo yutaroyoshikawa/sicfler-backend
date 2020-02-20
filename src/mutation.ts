@@ -255,7 +255,16 @@ const Mutation: MutationResolvers = {
       sumbnail: args.sumbnail,
       images: args.images,
       visitors: [],
-      orner: orner.Item!.id,
+      orner: {
+        id: orner.Item!.id,
+        email: orner.Item!.email,
+        name: orner.Item!.name,
+        discription: orner.Item!.discription,
+        icon: orner.Item!.icon,
+        images: orner.Item!.images,
+        address: orner.Item!.address,
+        location: orner.Item!.location
+      },
       address: args.address,
       location: {
         xIndex: args.location?.xIndex,
@@ -269,7 +278,26 @@ const Mutation: MutationResolvers = {
 
     await DB.put({
       TableName: Tables.PostsTable,
-      Item: post
+      Item: {
+        id,
+        name: args.name,
+        start: args.start,
+        finish: args.finish,
+        discription: args.discription,
+        sumbnail: args.sumbnail,
+        images: args.images,
+        visitors: [],
+        ornerId: orner.Item!.id,
+        address: args.address,
+        location: {
+          xIndex: args.location?.xIndex,
+          yIndex: args.location?.yIndex
+        },
+        target: {
+          ageGroup: args.target.ageGroup,
+          gender: args.target.gender
+        }
+      }
     })
       .promise()
       .catch(err => {
