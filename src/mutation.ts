@@ -236,8 +236,7 @@ const Mutation: MutationResolvers = {
     const orner = await DB.get({
       TableName: Tables.OrnersTable,
       Key: {
-        Name: "id",
-        Value: args.ornerId
+        id: args.ornerId
       }
     })
       .promise()
@@ -253,8 +252,8 @@ const Mutation: MutationResolvers = {
       start: args.start,
       finish: args.finish,
       discription: args.discription,
-      sumbnail: args.discription,
-      images: [],
+      sumbnail: args.sumbnail,
+      images: args.images,
       visitors: [],
       orner: {
         id: orner.Item!.id,
@@ -272,8 +271,8 @@ const Mutation: MutationResolvers = {
         yIndex: args.location?.yIndex
       },
       target: {
-        ageGroup: 10,
-        gender: 1
+        ageGroup: args.target.ageGroup,
+        gender: args.target.gender
       }
     };
 
