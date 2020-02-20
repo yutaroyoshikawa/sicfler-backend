@@ -171,7 +171,9 @@ const Query: QueryResolvers = {
           TableName: Tables.PostsTable,
           FilterExpression: "ornerId = :key",
           ExpressionAttributeValues: {
-            ":key": args.ornerId
+            ":key": {
+              S: args.ornerId
+            }
           }
         })
         .promise()
