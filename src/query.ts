@@ -174,9 +174,7 @@ const Query: QueryResolvers = {
             "#key": "ornerId"
           },
           ExpressionAttributeValues: {
-            ":key": {
-              S: args.ornerId
-            }
+            ":key": args.ornerId
           }
         })
         .promise()
