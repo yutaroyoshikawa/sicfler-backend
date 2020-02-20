@@ -194,20 +194,24 @@ const Query: QueryResolvers = {
           throw new ApolloError(err);
         });
 
-      const includedOrnerInfoPosts = posts.Items?.map(post => ({
-        id: post.id,
-        name: post.name,
-        start: post.start,
-        finish: post.finish,
-        discription: post.discription,
-        sumbnail: post.sumbnail,
-        images: post.images,
-        visitors: post.visitors,
-        orner,
-        address: post.address,
-        location: post.location,
-        target: post.target
-      }));
+      const includedOrnerInfoPosts: any[] = [];
+      posts.Items!.forEach(post => {
+        const result = {
+          id: post.id,
+          name: post.name,
+          start: post.start,
+          finish: post.finish,
+          discription: post.discription,
+          sumbnail: post.sumbnail,
+          images: post.images,
+          visitors: post.visitors,
+          orner,
+          address: post.address,
+          location: post.location,
+          target: post.target
+        };
+        includedOrnerInfoPosts.push(result);
+      });
 
       return includedOrnerInfoPosts as any;
     }
