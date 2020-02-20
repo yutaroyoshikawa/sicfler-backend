@@ -255,16 +255,7 @@ const Mutation: MutationResolvers = {
       sumbnail: args.sumbnail,
       images: args.images,
       visitors: [],
-      orner: {
-        id: orner.Item!.id,
-        email: orner.Item!.email,
-        name: orner.Item!.name,
-        discription: orner.Item!.discription,
-        icon: orner.Item!.icon,
-        images: orner.Item!.images,
-        address: orner.Item!.address,
-        location: orner.Item!.location
-      },
+      orner: orner.Item!.id,
       address: args.address,
       location: {
         xIndex: args.location?.xIndex,
