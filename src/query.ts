@@ -204,7 +204,7 @@ const Query: QueryResolvers = {
             sumbnail: post.sumbnail,
             images: post.images,
             visitors: post.visitors,
-            orner,
+            orner: orner.Item,
             address: post.address,
             location: post.location,
             target: post.target
