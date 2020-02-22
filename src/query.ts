@@ -167,13 +167,11 @@ const Query: QueryResolvers = {
   async posts(_parent, args) {
     if (args.ornerId) {
       const posts = await db
-        .scan({
+        .query({
           TableName: Tables.PostsTable,
-          FilterExpression: "ornerId = :key",
+          KeyConditionExpression: "ornerId = :ornerId",
           ExpressionAttributeValues: {
-            ":key": {
-              S: args.ornerId
-            }
+            ":ornerId": args.ornerId
           }
         })
         .promise()
