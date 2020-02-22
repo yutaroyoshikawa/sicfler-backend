@@ -172,8 +172,8 @@ const Query: QueryResolvers = {
           FilterExpression: "ornerId = :ornerId",
           ExpressionAttributeValues: {
             ":ornerId": args.ornerId
-          },
-          ProjectionExpression: "id"
+          }
+          // ProjectionExpression: "id"
         })
         .promise()
         .catch(err => {
