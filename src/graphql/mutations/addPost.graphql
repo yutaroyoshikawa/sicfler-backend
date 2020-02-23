@@ -3,6 +3,7 @@ mutation addPost(
   $start: DateTime!,
   $finish: DateTime!,
   $discription: String,
+  $sicflerId: ID!,
   $sumbnail: String,
   $images: [String]!,
   $ornerId: String!,
@@ -15,6 +16,7 @@ mutation addPost(
     start: $start,
     finish: $finish,
     discription: $discription,
+    sicflerId: $sicflerId,
     sumbnail: $sumbnail,
     images: $images,
     ornerId: $ornerId,
@@ -27,6 +29,7 @@ mutation addPost(
     start
     finish
     discription
+    sicflerId
     sumbnail
     images
     visitors {

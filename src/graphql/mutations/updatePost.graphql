@@ -4,6 +4,7 @@ mutation updatePost(
   $start: DateTime!
   $finish: DateTime!
   $discription: String
+  $sicflerId: ID!
   $sumbnail: String
   $images: [String]!
   $ornerId: String!
@@ -17,6 +18,7 @@ mutation updatePost(
     start: $start
     finish: $finish
     discription: $discription
+    sicflerId: $sicflerId
     sumbnail: $sumbnail
     images: $images
     ornerId: $ornerId
@@ -29,6 +31,7 @@ mutation updatePost(
     start
     finish
     discription
+    sicflerId
     sumbnail
     images
     visitors {

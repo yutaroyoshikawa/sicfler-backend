@@ -5,6 +5,7 @@ query post($id: ID!) {
     start
     finish
     discription
+    sicflerId
     sumbnail
     images
     visitors {

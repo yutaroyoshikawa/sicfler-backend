@@ -153,6 +153,8 @@ const Query: QueryResolvers = {
       name: response.Item!.name,
       start: response.Item!.start,
       finish: response.Item!.finish,
+      discription: response.Item!.discription,
+      sicflerId: response.Item!.sicflerId,
       images: response.Item!.images,
       visitors: response.Item!.visitors,
       orner: {
@@ -161,30 +163,27 @@ const Query: QueryResolvers = {
         name: orner.Item!.name,
         images: orner.Item!.images
       },
+      address: response.Item!.address,
+      location: response.Item!.location,
       target: response.Item!.target
     };
   },
-  async posts(_parent, args) {
-    if (args.ornerId) {
-      const posts = await db
-        .scan({
-          TableName: Tables.PostsTable,
-          FilterExpression: "ornerId = :ornerId",
-          ExpressionAttributeValues: {
-            ":ornerId": args.ornerId
-          }
-          // ProjectionExpression: "id"
-        })
-        .promise()
-        .catch(err => {
-          throw new ApolloError(err);
-        });
+  async posts(_parent, _args) {
+    const posts = await db
+      .scan({
+        TableName: Tables.PostsTable
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
 
+    const getOrner = async (ornerId: string) => {
       const orner = await db
         .get({
           TableName: Tables.OrnersTable,
           Key: {
-            id: args.ornerId
+            id: ornerId
           }
         })
         .promise()
@@ -192,31 +191,132 @@ const Query: QueryResolvers = {
           throw new ApolloError(err);
         });
 
-      const includedOrnerInfoPosts: any[] = [];
-      Promise.all(
-        posts.Items!.map(async post => {
-          const result = {
-            id: post.id,
-            name: post.name,
-            start: post.start,
-            finish: post.finish,
-            discription: post.discription,
-            sumbnail: post.sumbnail,
-            images: post.images,
-            visitors: post.visitors,
-            orner: orner.Item,
-            address: post.address,
-            location: post.location,
-            target: post.target
-          };
-          includedOrnerInfoPosts.push(result);
-        })
-      );
+      return orner.Item;
+    };
 
-      return includedOrnerInfoPosts as any;
-    }
+    const includedOrnerInfoPosts: any[] = [];
+    Promise.all(
+      posts.Items!.map(async post => {
+        const result = {
+          id: post.id,
+          name: post.name,
+          start: post.start,
+          finish: post.finish,
+          discription: post.discription,
+          sicflerId: post.sicflerId,
+          sumbnail: post.sumbnail,
+          images: post.images,
+          visitors: post.visitors,
+          orner: await getOrner(post.ornerId),
+          address: post.address,
+          location: post.location,
+          target: post.target
+        };
+        includedOrnerInfoPosts.push(result);
+      })
+    );
 
-    throw new ApolloError("idを今は指定してください。");
+    return includedOrnerInfoPosts as any;
+  },
+  async postsByOrnerId(_parent, args) {
+    const posts = await db
+      .scan({
+        TableName: Tables.PostsTable,
+        FilterExpression: "ornerId = :ornerId",
+        ExpressionAttributeValues: {
+          ":ornerId": args.ornerId
+        }
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    const orner = await db
+      .get({
+        TableName: Tables.OrnersTable,
+        Key: {
+          id: args.ornerId
+        }
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    const includedOrnerInfoPosts: any[] = [];
+    Promise.all(
+      posts.Items!.map(async post => {
+        const result = {
+          id: post.id,
+          name: post.name,
+          start: post.start,
+          finish: post.finish,
+          discription: post.discription,
+          sicflerId: post.sicflerId,
+          sumbnail: post.sumbnail,
+          images: post.images,
+          visitors: post.visitors,
+          orner: orner.Item,
+          address: post.address,
+          location: post.location,
+          target: post.target
+        };
+        includedOrnerInfoPosts.push(result);
+      })
+    );
+
+    return includedOrnerInfoPosts as any;
+  },
+  async postsBySicflerId(_parent, args) {
+    const posts = await db
+      .scan({
+        TableName: Tables.PostsTable,
+        FilterExpression: "sicflerId = :sicflerId",
+        ExpressionAttributeValues: {
+          ":sicflerId": args.sicflerId
+        }
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    const orner = await db
+      .get({
+        TableName: Tables.OrnersTable,
+        Key: {
+          id: args.sicflerId
+        }
+      })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    const includedOrnerInfoPosts: any[] = [];
+    Promise.all(
+      posts.Items!.map(async post => {
+        const result = {
+          id: post.id,
+          name: post.name,
+          start: post.start,
+          finish: post.finish,
+          discription: post.discription,
+          sicflerId: post.sicflerId,
+          sumbnail: post.sumbnail,
+          images: post.images,
+          visitors: post.visitors,
+          orner: orner.Item,
+          address: post.address,
+          location: post.location,
+          target: post.target
+        };
+        includedOrnerInfoPosts.push(result);
+      })
+    );
+
+    return includedOrnerInfoPosts as any;
   }
 };
 

@@ -51,6 +51,7 @@ type Post {
   start: DateTime!
   finish: DateTime!
   discription: String
+  sicflerId: ID!
   sumbnail: String
   images: [String]!
   visitors: [Visitor]!
@@ -78,8 +79,8 @@ type Query {
   orners: [Orner]!
   post(id: ID!): Post!
   posts: [Post]!
-  postsByOrnerId(ornerId: ID): [Post]!
-  postsBySicflerId(sicflerId: ID): [Post]!
+  postsByOrnerId(ornerId: ID!): [Post]!
+  postsBySicflerId(sicflerId: ID!): [Post]!
 }
 
 type Mutation {
@@ -112,6 +113,7 @@ type Mutation {
     start: DateTime!,
     finish: DateTime!,
     discription: String,
+    sicflerId: ID!,
     sumbnail: String,
     images: [String]!,
     ornerId: String!,
@@ -125,6 +127,7 @@ type Mutation {
     start: DateTime!,
     finish: DateTime!,
     discription: String,
+    sicflerId: ID!,
     sumbnail: String,
     images: [String]!,
     ornerId: String!,

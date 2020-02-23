@@ -1,10 +1,11 @@
-query postsByOrnerId($ornerId: ID) {
+query postsByOrnerId($ornerId: ID!) {
   postsByOrnerId(ornerId: $ornerId) {
     id
     name
     start
     finish
     discription
+    sicflerId
     sumbnail
     images
     visitors {
