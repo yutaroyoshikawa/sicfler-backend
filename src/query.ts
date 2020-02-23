@@ -195,7 +195,7 @@ const Query: QueryResolvers = {
     };
 
     const includedOrnerInfoPosts: any[] = [];
-    Promise.all(
+    await Promise.all(
       posts.Items!.map(async post => {
         const result = {
           id: post.id,
@@ -245,7 +245,7 @@ const Query: QueryResolvers = {
       });
 
     const includedOrnerInfoPosts: any[] = [];
-    Promise.all(
+    await Promise.all(
       posts.Items!.map(async post => {
         const result = {
           id: post.id,
