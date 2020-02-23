@@ -80,8 +80,8 @@ const Mutation: MutationResolvers = {
       images: args.images,
       address: args.address,
       location: {
-        xIndex: args.location?.xIndex,
-        yIndex: args.location?.yIndex
+        lat: args.location?.lat,
+        lng: args.location?.lng
       }
     };
 
@@ -106,8 +106,8 @@ const Mutation: MutationResolvers = {
       images: args.images!,
       address: args.address!,
       location: {
-        xIndex: args.location?.xIndex,
-        yIndex: args.location?.yIndex
+        lat: args.location?.lat,
+        lng: args.location?.lng
       }
     };
 
@@ -267,8 +267,8 @@ const Mutation: MutationResolvers = {
       },
       address: args.address,
       location: {
-        xIndex: args.location?.xIndex,
-        yIndex: args.location?.yIndex
+        lat: args.location?.lat,
+        lng: args.location?.lng
       },
       target: {
         ageGroup: args.target.ageGroup,
@@ -290,8 +290,8 @@ const Mutation: MutationResolvers = {
         ornerId: orner.Item!.id,
         address: args.address,
         location: {
-          xIndex: args.location?.xIndex,
-          yIndex: args.location?.yIndex
+          lat: args.location?.lat,
+          lng: args.location?.lng
         },
         target: {
           ageGroup: args.target.ageGroup,

@@ -19,8 +19,8 @@ type ReturnDelete {
 }
 
 type Geolocation {
-  xIndex: Float
-  yIndex: Float
+  lat: Float
+  lng: Float
 }
 
 type Orner {
@@ -61,8 +61,8 @@ type Post {
 }
 
 input GeolocationInput {
-  xIndex: Float
-  yIndex: Float
+  lat: Float
+  lng: Float
 }
 
 input TargetInput {
@@ -77,7 +77,9 @@ type Query {
   orner(id: ID!): Orner!
   orners: [Orner]!
   post(id: ID!): Post!
-  posts(ornerId: ID): [Post]!
+  posts: [Post]!
+  postsByOrnerId(ornerId: ID): [Post]!
+  postsBySicflerId(sicflerId: ID): [Post]!
 }
 
 type Mutation {

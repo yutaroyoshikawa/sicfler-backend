@@ -1,5 +1,5 @@
-query posts {
-  posts {
+query postsBySicflerId($sicflerId: ID) {
+  postsBySicflerId(sicflerId: $sicflerId) {
     id
     name
     start

@@ -8,8 +8,8 @@ query orners {
     images
     address
     location {
-      xIndex
-      yIndex
+      lat
+      lng
     }
   }
 }

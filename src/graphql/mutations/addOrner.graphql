@@ -26,8 +26,8 @@ mutation addOrner(
     images
     address
     location {
-      xIndex
-      yIndex
+      lat
+      lng
     }
   }
 }

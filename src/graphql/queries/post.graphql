@@ -21,14 +21,14 @@ query post($id: ID!) {
       images
       address
       location {
-        xIndex
-        yIndex
+        lat
+        lng
       }
     }
     address
     location {
-      xIndex
-      yIndex
+      lat
+      lng
     }
     target {
       ageGroup

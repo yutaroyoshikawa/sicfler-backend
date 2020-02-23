@@ -1,5 +1,5 @@
-query posts {
-  posts {
+query postsByOrnerId($ornerId: ID) {
+  postsByOrnerId(ornerId: $ornerId) {
     id
     name
     start

@@ -8,8 +8,8 @@ query orner($id: ID!) {
     images
     address
     location {
-      xIndex
-      yIndex
+      lat
+      lng
     }
   }
 }
