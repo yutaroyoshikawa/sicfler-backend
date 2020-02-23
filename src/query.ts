@@ -282,17 +282,21 @@ const Query: QueryResolvers = {
         throw new ApolloError(err);
       });
 
-    const orner = await db
-      .get({
-        TableName: Tables.OrnersTable,
-        Key: {
-          id: args.sicflerId
-        }
-      })
-      .promise()
-      .catch(err => {
-        throw new ApolloError(err);
-      });
+    const getOrner = async (ornerId: string) => {
+      const orner = await db
+        .get({
+          TableName: Tables.OrnersTable,
+          Key: {
+            id: ornerId
+          }
+        })
+        .promise()
+        .catch(err => {
+          throw new ApolloError(err);
+        });
+
+      return orner.Item;
+    };
 
     const includedOrnerInfoPosts: any[] = [];
     Promise.all(
@@ -307,7 +311,7 @@ const Query: QueryResolvers = {
           sumbnail: post.sumbnail,
           images: post.images,
           visitors: post.visitors,
-          orner: orner.Item,
+          orner: await getOrner(post.ornerId),
           address: post.address,
           location: post.location,
           target: post.target
