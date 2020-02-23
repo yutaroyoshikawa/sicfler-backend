@@ -299,8 +299,10 @@ const Query: QueryResolvers = {
     };
 
     const includedOrnerInfoPosts: any[] = [];
-    Promise.all(
+    await Promise.all(
       posts.Items!.map(async post => {
+        const orner = await getOrner(post.ornerId);
+
         const result = {
           id: post.id,
           name: post.name,
@@ -311,7 +313,7 @@ const Query: QueryResolvers = {
           sumbnail: post.sumbnail,
           images: post.images,
           visitors: post.visitors,
-          orner: await getOrner(post.ornerId),
+          orner,
           address: post.address,
           location: post.location,
           target: post.target
