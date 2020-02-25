@@ -138,7 +138,7 @@ const Query: QueryResolvers = {
       .get({
         TableName: Tables.OrnersTable,
         Key: {
-          id: response.Item!.orderId
+          id: response.Item!.ornerId
         }
       })
       .promise()
