@@ -126,8 +126,7 @@ const Query: QueryResolvers = {
       .get({
         TableName: Tables.PostsTable,
         Key: {
-          Name: "id",
-          Value: args.id
+          id: args.id
         }
       })
       .promise()
