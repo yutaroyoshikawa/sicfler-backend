@@ -155,6 +155,7 @@ const Query: QueryResolvers = {
       sicflerId: response.Item!.sicflerId,
       images: response.Item!.images,
       visitors: response.Item!.visitors,
+      sumbnail: response.Item!.sumbnail,
       orner: {
         id: orner.Item!.id,
         email: orner.Item!.email,
