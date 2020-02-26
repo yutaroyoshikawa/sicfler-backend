@@ -308,6 +308,110 @@ const Mutation: MutationResolvers = {
 
     return post;
   },
+  async updatePost(_parent, args) {
+    await DB.update({
+      TableName: Tables.PostsTable,
+      Key: {
+        id: args.id
+      },
+      AttributeUpdates: {
+        name: {
+          Value: args.name,
+          Action: "PUT"
+        },
+        start: {
+          Value: args.start,
+          Action: "PUT"
+        },
+        finish: {
+          Value: args.finish,
+          Action: "PUT"
+        },
+        discription: {
+          Value: args.discription,
+          Action: "PUT"
+        },
+        sicflerId: {
+          Value: args.sicflerId,
+          Action: "PUT"
+        },
+        sumbnail: {
+          Value: args.sumbnail,
+          Action: "PUT"
+        },
+        images: {
+          Value: args.images,
+          Action: "PUT"
+        },
+        visitors: {
+          Value: args.visitors,
+          Action: "PUT"
+        },
+        ornerId: {
+          Value: args.ornerId,
+          Action: "PUT"
+        },
+        address: {
+          Value: args.address,
+          Action: "PUT"
+        },
+        location: {
+          Value: args.location,
+          Action: "PUT"
+        },
+        target: {
+          Value: args.target,
+          Action: "PUT"
+        }
+      }
+    })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    const orner = await DB.get({
+      TableName: Tables.OrnersTable,
+      Key: {
+        id: args.ornerId
+      }
+    })
+      .promise()
+      .catch(err => {
+        throw new ApolloError(err);
+      });
+
+    return {
+      id: args.id,
+      name: args.name,
+      start: args.start,
+      finish: args.finish,
+      discription: args.discription,
+      sicflerId: args.sicflerId,
+      sumbnail: args.sumbnail,
+      images: args.images,
+      visitors: args.visitors,
+      orner: {
+        id: orner.Item!.id,
+        email: orner.Item!.email,
+        name: orner.Item!.name,
+        discription: orner.Item!.discription,
+        icon: orner.Item!.icon,
+        images: orner.Item!.images,
+        address: orner.Item!.address,
+        location: orner.Item!.location
+      },
+      address: args.address,
+      location: {
+        lat: args.location?.lat,
+        lng: args.location?.lng
+      },
+      target: {
+        ageGroup: args.target.ageGroup,
+        gender: args.target.gender
+      }
+    };
+  },
   async deletePost(_parent, args) {
     await DB.delete({
       TableName: Tables.PostsTable,

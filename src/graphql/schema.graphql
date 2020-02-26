@@ -71,6 +71,12 @@ input TargetInput {
   gender: Int
 }
 
+input VisitorInput {
+  visitorName: String!
+  discription: String
+  sumbnail: String
+}
+
 type Query {
   myInfo: User!
   user(id: ID!): User!
@@ -132,8 +138,9 @@ type Mutation {
     images: [String]!,
     ornerId: String!,
     address: String,
-    location: GeolocationInput
-    target: TargetInput!
+    location: GeolocationInput,
+    target: TargetInput!,
+    visitors: [VisitorInput]!
   ): Post!
   deletePost(id: ID!): ReturnDelete!
 }
