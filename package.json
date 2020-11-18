@@ -79,6 +79,6 @@
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.3",
     "nanoid": "^2.1.11",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   }
 }
