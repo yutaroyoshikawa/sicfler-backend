@@ -78,7 +78,7 @@
     "graphql": "^14.6.0",
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.3",
-    "nanoid": "^2.1.11",
+    "nanoid": "^3.1.31",
     "node-fetch": "^2.6.1"
   }
 }
